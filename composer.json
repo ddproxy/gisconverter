@@ -1,5 +1,5 @@
 {
-    "name": "symm/gisconverter",
+    "name": "coreation/gisconverter",
     "description": "A php library to convert vector geometries between different formats",
     "minimum-stability": "stable",
     "license" : "BSD",
