@@ -109,7 +109,6 @@ class KML extends XML
                 }
 
                 $geom->setAttributes($attributes);
-                dd($attributes);
 
                 $components[] = $geom;
 
