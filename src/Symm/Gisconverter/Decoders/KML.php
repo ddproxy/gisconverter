@@ -88,6 +88,48 @@ class KML extends XML
         return $coordinates;
     }
 
+    protected static function childsCollect($xml)
+    {
+        $components = array();
+        $attributes = array();
+
+        foreach (static::childElements($xml) as $child) {
+            try {
+                $geom = static::geomFromXML($child);
+
+                // Check if there are Placemarks properties (name and description)
+                $attributes = [];
+
+                if (!empty($child->name)) {
+                    $attributes['name'] = strip_tags($child->name->asXML());
+                }
+
+                if (!empty($child->description)) {
+                    $attributes['description'] = strip_tags($child->name->asXML());
+                }
+
+                $geom->setAttributes($attributes);
+
+                $components[] = $geom;
+
+            } catch (InvalidText $e) {
+                if ($child->getName() == 'name') {
+                    $attributes[] = array('name' => strip_tags($child));
+                }
+            }
+        }
+
+        $ncomp = count($components);
+
+        if ($ncomp == 0) {
+            throw new InvalidText(__CLASS__);
+        } elseif ($ncomp == 1) {
+            return $components[0];
+        } else {
+            return new GeometryCollection($components);
+        }
+    }
+
     protected static function geomFromXML($xml)
     {
         $nodename = strtolower($xml->getName());
