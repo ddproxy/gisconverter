@@ -109,13 +109,11 @@ class KML extends XML
                 }
 
                 $geom->setAttributes($attributes);
+                dd($attributes);
 
                 $components[] = $geom;
 
             } catch (InvalidText $e) {
-                if ($child->getName() == 'name') {
-                    $attributes[] = array('name' => strip_tags($child));
-                }
             }
         }
 
@@ -135,7 +133,7 @@ class KML extends XML
         $nodename = strtolower($xml->getName());
 
         if ($nodename == "kml" or $nodename == "document" or $nodename == "placemark") {
-            return static::childsCollect($xml);
+            return self::childsCollect($xml);
         }
 
         $kmlTypes = array(

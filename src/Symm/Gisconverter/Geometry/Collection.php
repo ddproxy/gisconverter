@@ -39,7 +39,7 @@ abstract class Collection extends Geometry
             }
         };
 
-        return array('type' => static::name, 'coordinates' => call_user_func($recurviseJSON, $this));
+        return array('type' => static::name, 'coordinates' => call_user_func($recurviseJSON, $this), 'properties' => $this->getAttributes());
     }
 
     public function toGeoJSON()
