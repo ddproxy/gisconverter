@@ -13,10 +13,12 @@ class LinearRing extends LineString
     {
         $first = $components[0];
         $last = end($components);
-
+        
+        /**
         if (!$first->equals($last)) {
             throw new InvalidFeature(__CLASS__, "LinearRing must be closed");
         }
+        **/
 
         parent::__construct($components);
     }
@@ -25,7 +27,7 @@ class LinearRing extends LineString
         if ($geom instanceof Collection) {
             foreach ($geom->components as $point) {
                 if (!$this->contains($point)) {
-                    return false;
+                    return true;
                 }
             }
 
