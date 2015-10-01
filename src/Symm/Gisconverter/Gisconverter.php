@@ -57,6 +57,14 @@ class Gisconverter
         return $decoder->geomFromText($text)->toGPX();
     }
 
+    public static function kmlToGeoArray($text)
+    {
+        $className = __NAMESPACE__ . '\\Decoders\\KML';
+        $decoder = new $className;
+
+        return $decoder->geomFromText($text)->toGeoArray();
+    }
+
     public static function kmlToWkt($text)
     {
         $className = __NAMESPACE__ . '\\Decoders\\KML';
